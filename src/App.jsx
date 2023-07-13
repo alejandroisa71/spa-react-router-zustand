@@ -1,29 +1,40 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Index } from './routes';
-import { Info } from './routes/info';
-import { Admin } from './routes/admin';
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Index/>
-        // action: ()=> import('.pages/home')
-  },
-  {
-    path: '/info',
-    element:<Info/>
-  },
-  {
-    path: '/admin',
-    element:<Admin/>
-  }
-]);
+import { AuthProvider, useAuth } from "./context/AuthContext";
+import { Layout } from "./components/Layout";
+import { LoginPage } from "./pages/LoginPage";
+import { PublicPage } from "./pages/PublicPage";
+import { ProtectedPage } from "./pages/ProtectedPage";
 
-const App = () => {
+export default function App() {
   return (
-    <div>
-      <RouterProvider router={router} />
-    </div>
+    <AuthProvider>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<PublicPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/protected"
+            element={
+              <RequireAuth>
+                <ProtectedPage />
+              </RequireAuth>
+            }
+          />
+        </Route>
+      </Routes>
+    </AuthProvider>
   );
-};
-export default App;
+}
+
+// eslint-disable-next-line react/prop-types
+function RequireAuth({ children }) {
+  let auth = useAuth();
+  let location = useLocation();
+
+  if (!auth.user) {
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return children;
+}
