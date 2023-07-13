@@ -1,15 +1,33 @@
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { AuthStatus } from "./AuthStatus";
+
+const active = {
+  color: "red",
+};
+
+const disactive = {
+  default: {
+    color: "green",
+  },
+  Hovered: {
+    color: "gray",
+  },
+};
 
 export function Layout() {
   return (
     <div>
       <ul>
         <li>
-          <Link to="/">Página Publica</Link>
+          <NavLink
+            to="/"
+            style={({ isActive }) => (isActive ? active : disactive)}
+          >
+            Página Publica
+          </NavLink>
         </li>
         <li>
-          <Link to="/protected">Admin</Link>
+          <NavLink to="/protected">Admin</NavLink>
         </li>
       </ul>
 
