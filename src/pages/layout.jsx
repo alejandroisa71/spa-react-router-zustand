@@ -1,16 +1,18 @@
-import { NavLink, Outlet } from "react-router-dom";
-import { AuthStatus } from "./AuthStatus";
+import { NavLink, Outlet } from 'react-router-dom';
+import { AuthStatus } from '../components/AuthStatus';
 
+
+///cambiar nombrea a colores
 const active = {
-  color: "red",
+  color: 'red',
 };
 
 const disactive = {
   default: {
-    color: "green",
+    color: 'green',
   },
   Hovered: {
-    color: "gray",
+    color: 'gray',
   },
 };
 
@@ -20,14 +22,14 @@ export function Layout() {
       <ul>
         <li>
           <NavLink
-            to="/"
+            to="/infoPage"
             style={({ isActive }) => (isActive ? active : disactive)}
           >
             Página Publica
           </NavLink>
         </li>
         <li>
-          <NavLink to="/protected">Admin</NavLink>
+          <NavLink to="/requireAuthPage">Admin</NavLink>
         </li>
       </ul>
 

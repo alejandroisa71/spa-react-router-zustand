@@ -1,40 +1,62 @@
-import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 
-import { AuthProvider, useAuth } from "./context/AuthContext";
-import { Layout } from "./components/Layout";
-import { LoginPage } from "./pages/LoginPage";
-import { PublicPage } from "./pages/PublicPage";
-import { ProtectedPage } from "./pages/ProtectedPage";
+import { AuthProvider } from './context/AuthContext';
+import { Layout } from './pages/layout';
+import { LoginPage } from './pages/loginPage';
+import { InfoPage } from './pages/infoPage';
+import { AdminPage } from './pages/adminPage';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { RequireAuth } from './pages/requireAuthPage';
+import ErrorPage from './pages/error-page';
+
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: '/infoPage',
+        element: <InfoPage />,
+      },
+
+      {
+        path: '/loginPage',
+        element: <LoginPage />,
+      },
+      {
+        path: '/requireAuthPage',
+        element: (
+          <RequireAuth>
+            <AdminPage />
+          </RequireAuth>
+        ),
+      },
+    ],
+  },
+]);
 
 export default function App() {
   return (
     <AuthProvider>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<PublicPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route
-            path="/protected"
-            element={
-              <RequireAuth>
-                <ProtectedPage />
-              </RequireAuth>
-            }
-          />
-        </Route>
-      </Routes>
+      <RouterProvider router={router} />
+      {/* <BrowserRouter>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<PublicPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route
+              path="/protected"
+              element={
+                <RequireAuth>
+                  <ProtectedPage />
+                </RequireAuth>
+              }
+            />
+          </Route>
+        </Routes>
+      </BrowserRouter> */}
     </AuthProvider>
   );
 }
 
 // eslint-disable-next-line react/prop-types
-function RequireAuth({ children }) {
-  let auth = useAuth();
-  let location = useLocation();
-
-  if (!auth.user) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
-  }
-
-  return children;
-}
