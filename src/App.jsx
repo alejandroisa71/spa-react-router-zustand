@@ -1,30 +1,28 @@
-
-import { AuthProvider } from './context/AuthContext';
-import { Layout } from './pages/layout';
-import { LoginPage } from './pages/loginPage';
-import { InfoPage } from './pages/infoPage';
-import { AdminPage } from './pages/adminPage';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { RequireAuth } from './pages/requireAuthPage';
-import ErrorPage from './pages/error-page';
+import { AuthProvider } from "./context/AuthContext";
+import { Layout } from "./pages/layout";
+import { LoginPage } from "./pages/loginPage";
+import { InfoPage } from "./components/infoPage";
+import { AdminPage } from "./components/adminPage";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { RequireAuth } from "./pages/requireAuthPage";
+import ErrorPage from "./components/error-page";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/infoPage',
+        path: "/infoPage",
         element: <InfoPage />,
       },
-
       {
-        path: '/loginPage',
+        path: "/loginPage",
         element: <LoginPage />,
       },
       {
-        path: '/requireAuthPage',
+        path: "/requireAuthPage",
         element: (
           <RequireAuth>
             <AdminPage />
@@ -39,24 +37,6 @@ export default function App() {
   return (
     <AuthProvider>
       <RouterProvider router={router} />
-      {/* <BrowserRouter>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<PublicPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route
-              path="/protected"
-              element={
-                <RequireAuth>
-                  <ProtectedPage />
-                </RequireAuth>
-              }
-            />
-          </Route>
-        </Routes>
-      </BrowserRouter> */}
     </AuthProvider>
   );
 }
-
-// eslint-disable-next-line react/prop-types

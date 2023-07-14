@@ -1,5 +1,5 @@
 import { useState, createContext, useContext } from "react";
- import { fakeAuthProvider } from "../auth";
+ import { fakeAuthProvider } from "./auth";
 
 
 
