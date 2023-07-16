@@ -1,6 +1,6 @@
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -9,18 +9,65 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
-ul{
+/* Navegacion */
+ul {
   display: flex;
-  
+  align-items: center;
 }
 
-li{
+li {
   list-style-type: none;
   padding: 2em;
   margin-right: 1em;
 }
 
+.nav-link {
+  text-decoration: none;
+}
+
+strong{
+  color: #b13417;
+}
+
+
+/* Formulario */
+.form-login {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #8c8273;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  border-radius: 5px;
+  padding: 0.5em;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  box-sizing: none;
+  border: none;
+}
+
+button {
+  background: #108a92;
+  color: #fafafa;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-top: 5px;
+  cursor: pointer;
+  border: none;
+}
+
+.mesagge-unlogged{
+  color:#FF0000;
+}

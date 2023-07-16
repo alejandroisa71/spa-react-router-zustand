@@ -1,32 +1,29 @@
-import { AuthProvider } from "./context/AuthContext";
-import { Layout } from "./pages/layout";
-import { LoginPage } from "./pages/loginPage";
-import { InfoPage } from "./components/infoPage";
-import { AdminPage } from "./components/adminPage";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { RequireAuth } from "./pages/requireAuthPage";
-import ErrorPage from "./components/error-page";
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import { Layout } from './components/Layout';
+import { Info } from './components/Info';
+import { Admin } from './components/Admin';
+import { AdminPage } from './routes/adminPage';
+import Index from './routes/index';
+import ErrorPage from './routes/errorPage';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
+      { index: true, element: <Index /> },
       {
-        path: "/infoPage",
-        element: <InfoPage />,
+        path: '/infoPage',
+        element: <Info />,
       },
       {
-        path: "/loginPage",
-        element: <LoginPage />,
-      },
-      {
-        path: "/requireAuthPage",
+        path: '/adminPage',
         element: (
-          <RequireAuth>
-            <AdminPage />
-          </RequireAuth>
+          <AdminPage>
+            <Admin />
+          </AdminPage>
         ),
       },
     ],
@@ -35,8 +32,8 @@ const router = createBrowserRouter([
 
 export default function App() {
   return (
-    <AuthProvider>
+    <>
       <RouterProvider router={router} />
-    </AuthProvider>
+    </>
   );
 }
