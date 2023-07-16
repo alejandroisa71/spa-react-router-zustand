@@ -5,7 +5,7 @@ import { Info } from './components/Info';
 import { Admin } from './components/Admin';
 import { AdminPage } from './routes/adminPage';
 import Index from './routes/index';
-import ErrorPage from './routes/errorPage';
+import ErrorPage from './components/ErrorPage';
 
 const router = createBrowserRouter([
   {
