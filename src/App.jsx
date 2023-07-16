@@ -1,12 +1,11 @@
-
-import { AuthProvider } from './context/AuthContext';
-import { Layout } from './pages/layout';
-import { LoginPage } from './pages/loginPage';
-import { InfoPage } from './pages/infoPage';
-import { AdminPage } from './pages/adminPage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { RequireAuth } from './pages/requireAuthPage';
-import ErrorPage from './pages/error-page';
+
+import { Layout } from './components/Layout';
+import { Info } from './components/Info';
+import { Admin } from './components/Admin';
+import { AdminPage } from './routes/adminPage';
+import Index from './routes/index';
+import ErrorPage from './routes/errorPage';
 
 const router = createBrowserRouter([
   {
@@ -14,21 +13,17 @@ const router = createBrowserRouter([
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
+      { index: true, element: <Index /> },
       {
         path: '/infoPage',
-        element: <InfoPage />,
-      },
-
-      {
-        path: '/loginPage',
-        element: <LoginPage />,
+        element: <Info />,
       },
       {
-        path: '/requireAuthPage',
+        path: '/adminPage',
         element: (
-          <RequireAuth>
-            <AdminPage />
-          </RequireAuth>
+          <AdminPage>
+            <Admin />
+          </AdminPage>
         ),
       },
     ],
@@ -37,26 +32,10 @@ const router = createBrowserRouter([
 
 export default function App() {
   return (
-    <AuthProvider>
+    <>
       <RouterProvider router={router} />
-      {/* <BrowserRouter>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<PublicPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route
-              path="/protected"
-              element={
-                <RequireAuth>
-                  <ProtectedPage />
-                </RequireAuth>
-              }
-            />
-          </Route>
-        </Routes>
-      </BrowserRouter> */}
-    </AuthProvider>
+     
+    </>
   );
 }
 
-// eslint-disable-next-line react/prop-types

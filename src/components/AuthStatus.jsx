@@ -1,24 +1,27 @@
-import {useNavigate} from 'react-router-dom'
-import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { useUserStore } from '../store/userStore';
 
 export function AuthStatus() {
-    let auth = useAuth();
-    let navigate = useNavigate();
-  
-    if (!auth.user) {
-      return <p>You are not logged in.</p>;
-    }
-  
-    return (
-      <p>
-        Welcome {auth.user}!{" "}
-        <button
-          onClick={() => {
-            auth.signout(() => navigate("/"));
-          }}
-        >
-          Sign out
-        </button>
-      </p>
-    );
+  const { username } = useUserStore();
+  const { logout } = useUserStore();
+
+  let navigate = useNavigate();
+
+  if (!username) {
+    return <p>Usted no se ha identificado.</p>;
   }
+
+  return (
+    <p>
+      Bienvenido <strong>{username}</strong>!{' '}
+      <button
+        onClick={() => {
+          logout();
+          navigate('/adminPage');
+        }}
+      >
+        Sign out
+      </button>
+    </p>
+  );
+}
